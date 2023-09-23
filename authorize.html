@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Authorization</title>
+</head>
+<body>
+    <h1>Device Authorization</h1>
+    
+    <!-- Tampilkan pesan ke pengguna -->
+    <div id="message"></div>
+    
+    <!-- Tombol untuk memulai otorisasi -->
+    <button id="authorizeButton">Authorize Device</button>
+
+    <script>
+        // Fungsi untuk menangani klik tombol otorisasi
+        document.getElementById('authorizeButton').addEventListener('click', function() {
+            // Kirim permintaan otorisasi ke server
+            fetch('/authorize')
+                .then(response => response.json())
+                .then(data => {
+                    // Tampilkan pesan ke pengguna
+                    document.getElementById('message').textContent = 'Silakan kunjungi: ' + data.verificationUri;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Tampilkan pesan kesalahan ke pengguna jika terjadi kesalahan
+                    document.getElementById('message').textContent = 'Terjadi kesalahan saat memulai otorisasi.';
+                });
+        });
+    </script>
+</body>
+</html>
